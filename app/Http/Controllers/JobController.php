@@ -16,7 +16,6 @@ class JobController extends Controller
         ]);
     }
 
-
     public function create()
     {
         return view('jobs.create');
@@ -43,7 +42,6 @@ class JobController extends Controller
         return redirect('/jobs');
     }
 
-
     public function edit(Job $job)
     {
         return view('jobs.edit', ['job' => $job]);
@@ -63,12 +61,11 @@ class JobController extends Controller
 
         return redirect('/jobs/' . $job->id);
     }
+
     public function destroy(Job $job)
     {
         $job->delete();
 
         return redirect('/jobs');
     }
-
-
 }
