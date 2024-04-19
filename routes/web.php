@@ -5,7 +5,7 @@ use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'home');
+Route::view('/home', 'home');
 Route::view('/contact', 'contact');
 
 Route::resource('jobs', JobController::class);
