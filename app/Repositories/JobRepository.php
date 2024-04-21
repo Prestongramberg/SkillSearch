@@ -12,7 +12,15 @@ class JobRepository implements JobRepositoryInterface
         return Job::with('employer')->latest()->simplePaginate($numberPerPage);
     }
 
+//    public function create(array $attributes) {
+//        return Job::create($attributes);
+//    }
     public function create(array $attributes) {
+        // Add the employer_id attribute to the array of attributes
+        $attributes['employer_id'] = 1;
+
+        // Create the Job model with the updated attributes
         return Job::create($attributes);
     }
+
 }
