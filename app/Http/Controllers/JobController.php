@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreJob;
+use App\Mail\JobPosted;
 use App\Models\Job;
 use App\Models\User;
 use App\Repositories\JobRepositoryInterface;
@@ -10,6 +11,7 @@ use App\Services\JobService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 
 class JobController extends Controller
 {
@@ -47,14 +49,13 @@ class JobController extends Controller
     public function store(StoreJob $request)
     {
         $validated = $request->validated();
-        $this->jobRepository->create($validated);
+        $job = $this->jobRepository->create($validated);
+
+        $job->load('employer.user');
+
+        Mail::to($job->employer->user)->send(new \App\Mail\JobPosted($job));
 
         return redirect('/jobs');
-    }
-
-    public function edit(Job $job)
-    {
-        return view('jobs.edit', ['job' => $job]);
     }
 
     public function update(Job $job)
