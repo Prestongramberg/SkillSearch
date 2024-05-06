@@ -20,7 +20,6 @@ class JobServiceProvider extends ServiceProvider
         });
 
         $this->app->bind(JobRepositoryInterface::class, JobRepository::class);
-
     }
 
     /**
